@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ram Deals</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:#0f172a;
+  color:white;
+}
+
+header{
+  text-align:center;
+  padding:20px;
+  font-size:28px;
+  font-weight:bold;
+  background:#020617;
+}
+
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  padding:20px;
+}
+
+.card{
+  background:#1e293b;
+  border-radius:15px;
+  overflow:hidden;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+}
+
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+
+.card-content{
+  padding:15px;
+}
+
+.title{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.desc{
+  font-size:14px;
+  margin:10px 0;
+  color:#cbd5e1;
+}
+
+.btn{
+  display:block;
+  text-align:center;
+  padding:10px;
+  background:#22c55e;
+  color:white;
+  text-decoration:none;
+  border-radius:8px;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>🔥 Ram Daily Deals</header>
+
+<div class="container" id="products"></div>
+
+<script>
+const API_URL = "https://sheetdb.io/api/v1/YOUR_API_ID";
+
+fetch(API_URL)
+.then(res => res.json())
+.then(data => {
+  let output = "";
+
+  data.forEach(item => {
+    output += `
+      <div class="card">
+        <img src="${item.image}" />
+        <div class="card-content">
+          <div class="title">${item.title}</div>
+          <div class="desc">${item.desc}</div>
+          <a class="btn" href="${item.link}" target="_blank">
+            Buy Now
+          </a>
+        </div>
+      </div>
+    `;
+  });
+
+  document.getElementById("products").innerHTML = output;
+});
+</script>
+
+</body>
+</html>
